@@ -10,12 +10,15 @@
 
 - [Python Miniconda environment construction](#python-miniconda-environment-construction)
   - [Table of Contents](#table-of-contents)
+  - [背景](#背景)
   - [概要](#概要)
   - [対象読者](#対象読者)
   - [作業環境](#作業環境)
+  - [対応するGitHubリポジトリとQiita記事](#対応するgithubリポジトリとqiita記事)
   - [作業手順](#作業手順)
+    - [batファイルのダウンロード](#batファイルのダウンロード)
     - [Anaconda環境から引越す準備](#anaconda環境から引越す準備)
-    - [Minicondaによる環境構築](#minicondaによる環境構築)
+    - [Miniconda+conda-forge環境構築](#minicondaconda-forge環境構築)
   - [Appendix](#appendix)
     - [batファイルの中身概要](#batファイルの中身概要)
   - [参考](#参考)
@@ -24,11 +27,17 @@
 
 ---
 
+## 背景
+
+- 従業員数200名以上の営利企業でのAnaconda利用が有償化された.
+
+
 ## 概要
 
-- Anacondaの有償化を受けて, これまでAnaconda環境を使用していた方がAnacondaのパッケージを引き継ぎMiniconda環境に移行するための手順.
+- Anacondaの有償化を受けて, これまでAnaconda環境を使用していた方がAnacondaのパッケージを引き継ぎ**Miniconda+conda-forge**環境に移行するための手順.
+- Pythonパッケージ一覧を出力するbatファイルを作成した.
+- Pythonパッケージ一覧を一括でインストールするbatファイルを作成した.
 
----
 
 ## 対象読者
 
@@ -48,7 +57,41 @@
 
 ---
 
+## 対応するGitHubリポジトリとQiita記事
+
+- **GitHubリポジトリ:**
+  - リポジトリ名: [py_miniconda_env_construction](https://github.com/laplaciannin102/py_miniconda_env_construction)
+
+  - URL: [https://github.com/laplaciannin102/py_miniconda_env_construction](https://github.com/laplaciannin102/py_miniconda_env_construction)
+
+- **Qiita記事:**
+  - [(Qiita)Anaconda有償化に伴いMiniconda+conda-forgeに引越しをした](https://qiita.com/AnnnPsinan414/private/7782a753347ff8ba448d)
+
+---
+
 ## 作業手順
+
+### batファイルのダウンロード
+
+1. [py_miniconda_env_constructionリポジトリ](https://github.com/laplaciannin102/py_miniconda_env_construction)へアクセスする.
+
+   - URL: [https://github.com/laplaciannin102/py_miniconda_env_construction](https://github.com/laplaciannin102/py_miniconda_env_construction)
+
+2. **git clone** または **zipのダウンロード** を行い, batファイルを取得する.
+
+   - git cloneできない方:
+     1. 右上の「Code」を押下する.
+     2. 「Download ZIP」を押下する.
+     3. 任意の場所に保存する.
+     4. zipファイルの解凍を行う.
+
+   - **git clone command:**
+
+     ```bash
+     git clone https://github.com/laplaciannin102/py_miniconda_env_construction.git
+     ```
+
+---
 
 ### Anaconda環境から引越す準備
 
@@ -98,7 +141,7 @@
 
 ---
 
-### Minicondaによる環境構築
+### Miniconda+conda-forge環境構築
 
 1. Minicondaのインストーラを下記URLからダウンロードする.
    - Miniconda: [https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html)
