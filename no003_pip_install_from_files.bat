@@ -34,7 +34,7 @@ echo pip install from %input_pkgs_fpath% is start.
 echo ========================================
 echo.
 
-rem run pip install line by line from the file 
+rem run pip install line by line from the file
 for /f %%l in (%input_pkgs_fpath%) do (
 
     rem pip install

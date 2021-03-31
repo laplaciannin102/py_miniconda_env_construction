@@ -99,6 +99,8 @@
 | 2   | no002_conda_install_from_files.bat | - `conda install`を使用して, テキストファイルから一括でパッケージをインストールする.          | 
 | 3   | no003_pip_install_from_files.bat   | - `pip install`を使用して, テキストファイルから一括でパッケージをインストールする.            | 
 
+- 各batファイルで大体何をしているのかは, [batファイルの中身概要](#batファイルの中身概要)を参照.
+
 ---
 
 ### Anaconda環境から引越す準備
@@ -285,6 +287,8 @@
 
 ### batファイルの中身概要
 
+- 詳しくはGitHubリポジトリからbatファイルを直接見てください.
+
 - **no001_backup_python_packages.bat**
 
   ```bat
@@ -314,6 +318,28 @@
   echo output pip packages file
   call pip list --format freeze > %pip_list_file0%
   ```
+
+- **no002_conda_install_from_files.bat**
+
+  ```bat
+  rem ファイルから1行ずつ読み込んでconda installを行う.
+  rem yesかnoか聞かれる場合があるので, 全てyes(y)で答える.
+  rem input_pkgs_fpathにはファイルパスをセット.
+  for /f %%l in (%input_pkgs_fpath%) do (
+      echo y|call conda install "%%l"
+  )
+  ```
+
+- **no003_pip_install_from_files.bat**
+
+  ```bat
+  rem ファイルから1行ずつ読み込んでpip installを行う.
+  rem input_pkgs_fpathにはファイルパスをセット.
+  for /f %%l in (%input_pkgs_fpath%) do (
+      call pip install "%%l"
+  )
+  ```
+
 
 ---
 
