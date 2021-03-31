@@ -91,48 +91,47 @@
      git clone https://github.com/laplaciannin102/py_miniconda_env_construction.git
      ```
 
+- batファイルの一覧
+
+| No. | batファイル名                      | 説明                                                                                          | 
+| :-- | :--------------------------------- | :-------------------------------------------------------------------------------------------- | 
+| 1   | no001_backup_python_packages.bat   | - Pythonにおけるインストール済みパッケージの一覧をバックアップテキストファイルとして取得する. | 
+| 2   | no002_conda_install_from_files.bat | - `conda install`を使用して, テキストファイルから一括でパッケージをインストールする.          | 
+| 3   | no003_pip_install_from_files.bat   | - `pip install`を使用して, テキストファイルから一括でパッケージをインストールする.            | 
+
 ---
 
 ### Anaconda環境から引越す準備
 
 - 本手順は**既存Anacondaユーザ**向け手順である.
-   - **新規Pythonユーザ**は[minicondaによる環境構築](#minicondaによる環境構築)を参照.
+   - **新規Pythonユーザ**は[Miniconda+conda-forge環境構築](#minicondaconda-forge環境構築)を参照.
 
-1. **no001_backup_python_packages.bat** を実行し, インストール済みパッケージの一覧をバックアップテキストとして取得する. 
-その際, python_pkgs_filesという名前のディレクトリを作成しその中にテキストファイルが格納される.
+1. **no001_backup_python_packages.bat** を実行し, インストール済みパッケージの一覧をバックアップテキストとして取得する.
+
+   - python_pkgs_filesという名前のディレクトリを作成しその中にテキストファイルが格納される.
+
+   - Anacondaにプリインストールされているパッケージの一覧も同時に取得する.
+     - Anaconda package lists: [https://docs.anaconda.com/anaconda/packages/pkg-docs/](https://docs.anaconda.com/anaconda/packages/pkg-docs/)
 
    - **出力先ディレクトリ:**
      - ./python_pkgs_files/
 
-   - **出力ファイル:**
+   - **出力ファイル一覧:**
 
-     - conda_pkgs_list_raw.txt
-       - condaのパッケージ一覧ファイル.
-       - `conda list --export`で取得.
+     - いわゆる**requirements.txt**と同様のファイル群.
+     - **yyyymmdd**は作業日付.
 
-     - conda_pkgs_list_eq_**yyyymmdd**.txt
-       - condaのパッケージ一覧のversionを **[package]==x.x.x** で設定したファイル.
+    | ファイル名                                        | 説明                                                                                                                                         | 
+    | :------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- | 
+    | conda_pkgs_list_raw.txt                           | - condaのパッケージ一覧ファイル.<br>- `conda list --export`で取得.                                                                           | 
+    | conda_pkgs_list_eq_**yyyymmdd**.txt               | - condaのパッケージ一覧のversionを **[package]==x.x.x** で設定したファイル.                                                                  | 
+    | conda_pkgs_list_geq_**yyyymmdd**.txt              | - condaのパッケージ一覧のversionを **[package]>=x.x.x** で設定したファイル.                                                                  | 
+    | pip_pkgs_list_raw.txt                             | - pipのパッケージ一覧ファイル.<br>- `pip list --format freeze`で取得.<br>- `pip freeze`だとversion部分がURLになってしまう場合がある.         | 
+    | pip_pkgs_list_eq_**yyyymmdd**.txt                 | - pipのパッケージ一覧のversionを **[package]==x.x.x** で設定したファイル.                                                                    | 
+    | pip_pkgs_list_geq_**yyyymmdd**.txt                | - pipのパッケージ一覧のversionを **[package]>=x.x.x** で設定したファイル.                                                                    | 
+    | anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txt | - Anacondaにプリインストールされているパッケージの一覧ファイル.<br>- これを使用することで, Anaconda環境と同様のパッケージをインストール可能. | 
+    | anaconda_preinstall_pkgs_list_eq_**sample**.txt   | - sampleファイル.<br>- anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txtと同様の内容.                                                        | 
 
-     - conda_pkgs_list_geq_**yyyymmdd**.txt
-       - condaのパッケージ一覧のversionを **[package]>=x.x.x** で設定したファイル.
-
-     - pip_pkgs_list_raw.txt
-       - pipのパッケージ一覧ファイル.
-       - `pip list --format freeze`で取得.
-       - `pip freeze`だとversion部分がURLになってしまう場合がある.
-
-     - pip_pkgs_list_eq_**yyyymmdd**.txt
-       - pipのパッケージ一覧のversionを **[package]==x.x.x** で設定したファイル.
-
-     - pip_pkgs_list_geq_**yyyymmdd**.txt
-       - pipのパッケージ一覧のversionを **[package]>=x.x.x** で設定したファイル.
-
-     - anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txt
-       - Anacondaにプリインストールされているパッケージの一覧ファイル.
-       - これを使用することで, Anaconda環境と同様のパッケージをインストール可能.
-
-   - Anacondaにプリインストールされているパッケージの一覧も同時に取得する.
-     - Anaconda package lists: [https://docs.anaconda.com/anaconda/packages/pkg-docs/](https://docs.anaconda.com/anaconda/packages/pkg-docs/)
 
 2. Anacondaをアンインストールする.
    1. Windowsの場合, コントロールパネルを起動する.
@@ -246,9 +245,13 @@
       select a packages file name : 
       ```
 
-10. 「select a packages file name : 」の右側に, インストールしたいテキストファイル名を入力し, Enterを押下する. 次の**sample**は「pip_pkgs_list_geq_20210330.txt」を選択した例.
+10. 「select a packages file name : 」の右側に, インストールしたいテキストファイル名を入力し, Enterを押下する.
 
-   - **sample**
+    - **[推奨]** Anacondaで元々プリインストールされていたパッケージを全てインストールする場合は, 「anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txt」または「anaconda_preinstall_pkgs_list_eq_sample.txt」を選択する.
+
+    - 次の**sample**は「pip_pkgs_list_geq_20210330.txt」を選択した例.
+
+    - **sample**
 
       ```cmd
       list of files in python_pkgs_files
@@ -270,6 +273,8 @@
 
 11. パッケージの一括インストールが開始される.
     - 複数のパッケージ管理ツールを使用する場合, 複数のテキストファイルからパッケージをインストールする場合は10の手順を複数回実行する.
+
+    - **[注意事項]** condaを使用して大量のインストールを行うと何時間もかかる場合があるので, 放置しておく.
 
 
 [終わり]
