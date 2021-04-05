@@ -1,8 +1,8 @@
 # Python Miniconda environment construction
 
 - author: laplaciannin102
-- date: 2021/03/31
-- version: 0.0.1
+- date: 2021/04/05
+- version: 0.0.2
 
 ---
 
@@ -18,6 +18,7 @@
   - [作業手順](#作業手順)
     - [batファイルのダウンロード](#batファイルのダウンロード)
     - [Anaconda環境から引越す準備](#anaconda環境から引越す準備)
+    - [Anacondaのアンインストール](#anacondaのアンインストール)
     - [Miniconda+conda-forge環境構築](#minicondaconda-forge環境構築)
   - [Appendix](#appendix)
     - [batファイルの中身概要](#batファイルの中身概要)
@@ -74,17 +75,14 @@
 ### batファイルのダウンロード
 
 1. [py_miniconda_env_constructionリポジトリ](https://github.com/laplaciannin102/py_miniconda_env_construction)へアクセスする.
-
    - URL: [https://github.com/laplaciannin102/py_miniconda_env_construction](https://github.com/laplaciannin102/py_miniconda_env_construction)
 
 2. **git clone** または **zipのダウンロード** を行い, batファイルを取得する.
-
    - git cloneできない方:
      1. 右上の「Code」を押下する.
      2. 「Download ZIP」を押下する.
      3. 任意の場所に保存する.
      4. zipファイルの解凍を行う.
-
    - **git clone command:**
 
      ```bash
@@ -108,18 +106,18 @@
 - 本手順は**既存Anacondaユーザ**向け手順である.
    - **新規Pythonユーザ**は[Miniconda+conda-forge環境構築](#minicondaconda-forge環境構築)を参照.
 
-1. **no001_backup_python_packages.bat** を実行し, インストール済みパッケージの一覧をバックアップテキストとして取得する.
-
-   - python_pkgs_filesという名前のディレクトリを作成しその中にテキストファイルが格納される.
-
-   - Anacondaにプリインストールされているパッケージの一覧も同時に取得する.
-     - Anaconda package lists: [https://docs.anaconda.com/anaconda/packages/pkg-docs/](https://docs.anaconda.com/anaconda/packages/pkg-docs/)
-
+1. インストール済みパッケージバックアップ用batファイルを実行する.
+   - ダブルクリック or 右クリックして「開く」 or 右クリックして「管理者として実行」
+   - **実行ファイル名:**
+     - **no001_backup_python_packages.bat**
+   - **処理概要:**
+     - インストール済みパッケージの一覧をバックアップテキストとして取得する.
+     - python_pkgs_filesという名前のディレクトリを作成し, その中にテキストファイルを格納する.
+     - Anacondaにプリインストールされているパッケージの一覧も同時に取得する.
+       - Anaconda package lists: [https://docs.anaconda.com/anaconda/packages/pkg-docs/](https://docs.anaconda.com/anaconda/packages/pkg-docs/)
    - **出力先ディレクトリ:**
      - ./python_pkgs_files/
-
    - **出力ファイル一覧:**
-
      - いわゆる**requirements.txt**と同様のファイル群.
      - **yyyymmdd**は作業日付.
 
@@ -134,11 +132,37 @@
     | anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txt | - Anacondaにプリインストールされているパッケージの一覧ファイル.<br>- これを使用することで, Anaconda環境と同様のパッケージをインストール可能. | 
     | anaconda_preinstall_pkgs_list_eq_**sample**.txt   | - sampleファイル.<br>- anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txtと同様の内容.                                                        | 
 
+---
 
-2. Anacondaをアンインストールする.
-   1. Windowsの場合, コントロールパネルを起動する.
-   2. プログラムと機能 > プログラムのアンインストール
-   3. Anacondaを選択し, アンインストールする.
+### Anacondaのアンインストール
+
+- 本手順は**既存Anacondaユーザ**向け手順である.
+   - **新規Pythonユーザ**は[Miniconda+conda-forge環境構築](#minicondaconda-forge環境構築)を参照.
+
+1. Anaconda Promptを起動する.
+2. 次のコマンドを入力し, **anaconda-clean**というパッケージをインストールする.
+
+    ```bat
+    conda install anaconda-clean
+    ```
+
+3. 次のコマンドを入力し, Anaconda関連のファイルやディレクトリを削除する.
+   - 各項目について確認しながら削除を行う場合:
+
+    ```bat
+    anaconda-clean
+    ```
+   - 各項目について確認せず一括で削除を行う場合:
+
+    ```bat
+    anaconda-clean --yes
+    ```
+
+4. Windowsの場合, コントロールパネルを起動する.
+5. プログラムと機能 > プログラムのアンインストール を開く.
+6. Anacondaを選択し, アンインストールする.
+
+- Anacondaの[公式ドキュメント(Uninstalling Anaconda)](https://docs.anaconda.com/anaconda/install/uninstall/)も参照のこと.
 
 ---
 
@@ -148,30 +172,22 @@
    - Miniconda: [https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html)
 
 2. インストーラを実行し, Minicondaをインストールする.
-
    1. 「Miniconda3~.exe」を実行する. セットアップウィザードが表示される.
    2. 最初の画面で, 「Next」を押下する.
-
    3. 「I Agree」を押下する.
-
    4. Install forはJust Meのまま「Next」を押下する.
-
    5. インストール先の指定では任意の場所を指定して, 「Next」を押下する.
       - 好みが無い方は初期設定のままでok.
-
    6. 「Add Miniconda3 to my PATH environment variable」にチェックを入れる.
-
    7. 「Install」を押下する.
-
    8. インストールされるので待機する.
-
 
 3. (インストール済みMinicondaの)Anaconda Promptを立ち上げる.
    - Windows10の場合, 左下の虫眼鏡アイコンから検索に「anaconda prompt」と入力すれば表示される.
    - **Anaconda Prompt(Miniconda3)** というソフト名.
    - 他cmdなどのコマンドラインでも可能.
 
-4. 次のコマンドを入力し, condaのチャネルの設定に**conda-forge**チャネルを削除する.
+4. 次のコマンドを入力し, condaのチャネルの設定に**conda-forge**チャネルを追加する.
 
     ```bat
     conda config --add channels conda-forge
@@ -182,12 +198,7 @@
     ```bat
     conda config --show channels
     ```
-
-    or
-
-    ```bat
-    conda config --get channels
-    ```
+   - `conda config --get channels`でも可能.
 
 6. 次のコマンドを入力し, condaのチャネルの設定から**defaults**チャネルを削除する.
 
@@ -200,33 +211,35 @@
     ```bat
     conda config --show channels
     ```
+   - `conda config --get channels`でも可能.
 
-    or
+8. 次のコマンドを入力し, conda自体を最新版にUpdateする.
 
     ```bat
-    conda config --get channels
+    conda update conda
     ```
 
-8. パッケージインストール用batファイルを実行する.
+8. 次のコマンドを入力し, インストール済みパッケージを全て最新版にUpdateする.
+   - ※Miniconda使用のため, 不要.
+
+    ```bat
+    conda update --all
+    ```
+
+9.  パッケージインストール用batファイルを実行する.
    - ダブルクリック or 右クリックして「開く」 or 右クリックして「管理者として実行」
-
    - 使用するパッケージ管理ツール毎に実行するbatファイルが異なる.
-
      - condaの場合:
        - **no002_conda_install_from_files.bat**
-
      - pipの場合:
        - **no003_pip_install_from_files.bat**
-
    - 「>>○○」という行は, 裏でどのようなコマンドが実行されてるか参考までに表示しているもの.
 
-9. コマンドライン(黒い画面)が立ち上がる. 次の**sample**の様に, 「list of files in python_pkgs_files」の下にインストール対象となるパッケージ一覧が記載されたテキストファイルが一覧表示されていることを確認する.
-
+11. コマンドライン(黒い画面)が立ち上がる. 次の**sample**の様に, 「list of files in python_pkgs_files」の下にインストール対象となるパッケージ一覧が記載されたテキストファイルが一覧表示されていることを確認する.
    - **新規Pythonユーザ**は「anaconda_preinstall_pkgs_list_eq_sample.txt」しか表示されない.
      - anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txt
        - Anacondaにプリインストールされているパッケージの一覧ファイル.
        - これを使用することで, Anaconda環境と同様のパッケージをインストール可能.」
-
    - **sample**
 
       ```cmd
@@ -247,12 +260,10 @@
       select a packages file name : 
       ```
 
-10. 「select a packages file name : 」の右側に, インストールしたいテキストファイル名を入力し, Enterを押下する.
-
+11. 「select a packages file name : 」の右側に, インストールしたいテキストファイル名を入力し, Enterを押下する.
+    - 入力はコピペでOK!!
     - **[推奨]** Anacondaで元々プリインストールされていたパッケージを全てインストールする場合は, 「anaconda_preinstall_pkgs_list_eq_**yyyymmdd**.txt」または「anaconda_preinstall_pkgs_list_eq_sample.txt」を選択する.
-
     - 次の**sample**は「pip_pkgs_list_geq_20210330.txt」を選択した例.
-
     - **sample**
 
       ```cmd
@@ -273,9 +284,15 @@
       select a packages file name : pip_pkgs_list_geq_20210330.txt
       ```
 
-11. パッケージの一括インストールが開始される.
-    - 複数のパッケージ管理ツールを使用する場合, 複数のテキストファイルからパッケージをインストールする場合は10の手順を複数回実行する.
+12. pipの場合, 「Do you want to install it as a user??」と**ユーザインストール**を行うか聞かれるので, ユーザインストールする場合は「**y**」(Yesの意味), そうでない場合は「**n**」(Noの意味)を入力し, Enterを押下する.
+    - 「**y**」を選択すると, `pip install --user [package]`を行う.
+    - ユーザインストールが分からない方:
+      - 「管理者権限がある」かつ「どのユーザもパッケージを使用したい」: **n**
+      - それ以外: **y**
+      - 迷った場合, 「**y**」を推奨.
 
+13. パッケージの一括インストールが開始される.
+    - 複数のパッケージ管理ツールを使用する場合, 複数のテキストファイルからパッケージをインストールする場合は10の手順を複数回実行する.
     - **[注意事項]** condaを使用して大量のインストールを行うと何時間もかかる場合があるので, 放置しておく.
 
 
@@ -366,5 +383,7 @@
 - [conda install documentation](https://docs.conda.io/projects/conda/en/latest/commands/install.html)
 
 - [Installing conda packages Anaconda  documentation](https://docs.anaconda.com/anaconda/user-guide/tasks/install-packages/)
+
+- [Uninstalling Anaconda](https://docs.anaconda.com/anaconda/install/uninstall/)
 
 - [(Qiita)conda updateで「Solving environment: failed」となった時の解決法](https://qiita.com/jordi/items/cd974b668e7ecf312543)

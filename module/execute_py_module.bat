@@ -1,5 +1,7 @@
 @echo off
 
+rem author: laplaciannin102
+
 rem change current directory
 cd /d %~dp0
 
